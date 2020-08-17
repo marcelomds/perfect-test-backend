@@ -9,7 +9,7 @@ class Sale extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = [''];
+    protected $fillable = ['product_id', 'customer_id', 'amount', 'discount', 'status'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -17,5 +17,13 @@ class Sale extends Model
     public function products()
     {
         return $this->hasMany(Product::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class);
     }
 }

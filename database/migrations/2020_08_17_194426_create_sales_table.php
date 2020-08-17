@@ -15,7 +15,21 @@ class CreateSalesTable extends Migration
     {
         Schema::create('sales', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('product_id');
+            $table->unsignedBigInteger('customer_id');
+            $table->unsignedInteger('amount');
+            $table->float('discount');
+            $table->string('status');
             $table->timestamps();
+            $table->softDeletes();
+
+            $table->foreign('product_id')
+                ->references('id')
+                ->on('products');
+
+            $table->foreign('customer_id')
+                ->references('id')
+                ->on('customers');
         });
     }
 
