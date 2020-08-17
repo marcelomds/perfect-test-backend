@@ -11,8 +11,12 @@ class Customer extends Model
 
     protected $fillable = ['name', 'email', 'cpf'];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
     public function sales()
     {
-        return $this->hasMany(Sale::class);
+        return $this->hasOne(Sale::class);
     }
+
 }
