@@ -5,7 +5,8 @@
     <div class='card mt-3'>
         <div class='card-body'>
             <h5 class="card-title mb-5">Tabela de vendas
-                <a href='' class='btn btn-secondary float-right btn-sm rounded-pill'><i class='fa fa-plus'></i>  Nova venda</a></h5>
+                <a href="{{ route('sale.create') }}" class='btn btn-secondary float-right btn-sm rounded-pill'><i
+                        class='fa fa-plus'></i> Nova venda</a></h5>
             <form>
                 <div class="form-row align-items-center">
                     <div class="col-sm-5 my-1">
@@ -29,7 +30,8 @@
                             <div class="input-group-prepend">
                                 <div class="input-group-text">Período</div>
                             </div>
-                            <input type="text" class="form-control date_range" id="inlineFormInputGroupUsername" placeholder="Username">
+                            <input type="text" class="form-control date_range" id="inlineFormInputGroupUsername"
+                                   placeholder="Username">
                         </div>
                     </div>
                     <div class="col-sm-1 my-1">
@@ -153,52 +155,63 @@
     <div class='card mt-3'>
         <div class='card-body'>
             <h5 class="card-title mb-5">Produtos
-                <a href='' class='btn btn-secondary float-right btn-sm rounded-pill'><i class='fa fa-plus'></i>  Novo produto</a></h5>
+                <a href="{{ route('product.create') }}" class='btn btn-secondary float-right btn-sm rounded-pill'><i
+                        class='fa fa-plus'></i> Novo produto</a></h5>
             <table class='table'>
+                <thead>
                 <tr>
-                    <th scope="col">
-                        Nome
-                    </th>
-                    <th scope="col">
-                        Valor
-                    </th>
-                    <th scope="col">
-                        Ações
-                    </th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Valor</th>
+                    <th scope="col">Ações</th>
                 </tr>
-                <tr>
-                    <td>
-                        Perfect Caps
-                    </td>
-                    <td>
-                        R$ 100,00
-                    </td>
-                    <td>
-                        <a href='' class='btn btn-primary'>Editar</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Nature Caps
-                    </td>
-                    <td>
-                        R$ 120,00
-                    </td>
-                    <td>
-                        <a href='' class='btn btn-primary'>Editar</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Libid Caps
-                    </td>
-                    <td>
-                        R$ 150,00
-                    </td>
-                    <td>
-                        <a href='' class='btn btn-primary'>Editar</a>
-                    </td>
-                </tr>
+                </thead>
+                <tbody>
+                @if(count($products) > 0)
+                    @foreach($products as $product)
+                        <tr>
+                            <td>{{ $product->name }}</td>
+                            <td>R$ {{ number_format($product->price, 2, ',', '.') }}</td>
+                            <td>
+                                <a href="{{ route('product.edit', $product->id) }}" class="btn btn-primary">Editar</a>
+                                <button data-toggle="modal"
+                                        data-target="#productModalDelete{{ $product->id }}"
+                                        class='btn btn-danger'>Excluir</button>
+                            </td>
+                        </tr>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="productModalDelete{{ $product->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">Excluir Produto: {{ $product->name }}</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="{{ route('product.destroy', $product->id) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <hr>
+                                            Deseja excluir este produto?
+                                            <hr>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                                <button type="submit" class="btn btn-success">Confirmar</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                @else
+                    <tr>
+                        <td colspan="3">Não há produtos cadastrados!</td>
+                    </tr>
+                @endif
+                </tbody>
             </table>
         </div>
     </div>

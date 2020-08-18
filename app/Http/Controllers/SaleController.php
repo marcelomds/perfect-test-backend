@@ -2,37 +2,36 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SaleRequest;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class SaleController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @var Product
      */
-    public function index()
+    private $product;
+
+    /**
+     * SaleController constructor.
+     * @param Product $product
+     */
+    public function __construct(Product $product)
     {
-        //
+        $this->product = $product;
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create()
     {
-        //
+        return view('crud_sales');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+
+    public function store(SaleRequest $request)
     {
         //
     }
