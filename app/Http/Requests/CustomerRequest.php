@@ -13,7 +13,7 @@ class CustomerRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,19 @@ class CustomerRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name'  => 'required',
+            'email' => 'email',
+            'cpf'   =>  'numeric'
+        ];
+    }
+
+    /**
+     * @return array|string[]
+     */
+    public function messages()
+    {
+        return [
+            'name.required' => 'O nome do cliente é obrigatório',
         ];
     }
 }

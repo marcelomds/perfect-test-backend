@@ -5,7 +5,7 @@
     <div class='card mt-3'>
         <div class='card-body'>
             <h5 class="card-title mb-5">Tabela de vendas
-                <a href="{{ route('sale.create') }}" class='btn btn-secondary float-right btn-sm rounded-pill'><i
+                <a href="{{ route('sales.create') }}" class='btn btn-secondary float-right btn-sm rounded-pill'><i
                         class='fa fa-plus'></i> Nova venda</a></h5>
             <form>
                 <div class="form-row align-items-center">
@@ -41,62 +41,33 @@
                 </div>
             </form>
             <table class='table'>
+                <thead>
                 <tr>
-                    <th scope="col">
-                        Produto
-                    </th>
-                    <th scope="col">
-                        Data
-                    </th>
-                    <th scope="col">
-                        Valor
-                    </th>
-                    <th scope="col">
-                        Ações
-                    </th>
+                    <th scope="col">Produto</th>
+                    <th scope="col">Data</th>
+                    <th scope="col">Valor</th>
+                    <th scope="col">Ações</th>
                 </tr>
+                </thead>
+                <tbody>
+                @if(count($products) > 0 || count($sales) > 0)
+                        @foreach($sales as $sale)
                 <tr>
+                    <td>{{ $sale->product->name }}</td>
+                    <td>{{ $sale->saleDate }}</td>
+                    <td>R$ {{ number_format($sale->product->price, 2, ',', '.') }}</td>
                     <td>
-                        Perfect Caps
-                    </td>
-                    <td>
-                        20/07/2019 19h15
-                    </td>
-                    <td>
-                        R$ 100,00
-                    </td>
-                    <td>
-                        <a href='' class='btn btn-primary'>Editar</a>
+                        <a href="{{ route('sales.edit', $sale->id, $sale->customer_id) }}" class="btn btn-primary">Editar</a>
+
                     </td>
                 </tr>
-                <tr>
-                    <td>
-                        Nature Caps
-                    </td>
-                    <td>
-                        20/07/2019 19h20
-                    </td>
-                    <td>
-                        R$ 125,00
-                    </td>
-                    <td>
-                        <a href='' class='btn btn-primary'>Editar</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Libid Caps
-                    </td>
-                    <td>
-                        20/07/2019 19h45
-                    </td>
-                    <td>
-                        R$ 110,00
-                    </td>
-                    <td>
-                        <a href='' class='btn btn-primary'>Editar</a>
-                    </td>
-                </tr>
+                @endforeach
+                @else
+                    <tr>
+                        <td colspan="4">Não há produtos cadastrados!!!</td>
+                    </tr>
+                @endif
+                </tbody>
             </table>
         </div>
     </div>
@@ -105,49 +76,26 @@
             <h5 class="card-title mb-5">Resultado de vendas</h5>
             <table class='table'>
                 <tr>
-                    <th scope="col">
-                        Status
-                    </th>
-                    <th scope="col">
-                        Quantidade
-                    </th>
-                    <th scope="col">
-                        Valor Total
-                    </th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Quantidade</th>
+                    <th scope="col">Valor Total</th>
                 </tr>
                 <tr>
-                    <td>
-                        Vendidos
-                    </td>
-                    <td>
-                        100
-                    </td>
-                    <td>
-                        R$ 100,00
-                    </td>
+                    <td>Vendidos</td>
+                    <td>100</td>
+                    <td>R$ 100,00</td>
                 </tr>
                 <tr>
-                    <td>
-                        Cancelados
-                    </td>
-                    <td>
-                        120
-                    </td>
-                    <td>
-                        R$ 100,00
-                    </td>
+                    <td>Cancelados</td>
+                    <td>100</td>
+                    <td>R$ 100,00</td>
                 </tr>
                 <tr>
-                    <td>
-                        Devoluções
-                    </td>
-                    <td>
-                        120
-                    </td>
-                    <td>
-                        R$ 100,00
-                    </td>
+                    <td>Devoluções</td>
+                    <td>100</td>
+                    <td>R$ 100,00</td>
                 </tr>
+
             </table>
         </div>
     </div>

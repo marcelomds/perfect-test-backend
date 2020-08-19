@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Customer;
 use App\Models\Product;
 use App\Models\Sale;
-use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
@@ -29,10 +28,12 @@ class DashboardController extends Controller
         $this->customer = $customer;
     }
 
-
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index()
     {
-        $sales = $this->sale->all();
+        $sales = $this->sale->with("product")->get();
         $products = $this->product->all();
         $customers = $this->customer->all();
 
