@@ -2,16 +2,19 @@
 
 use Illuminate\Support\Facades\Route;
 
+/**
+ * Tela de Dashboard
+ */
+Route::get('/', 'DashboardController@index')->name('dashboard');
 
-/*
-Telas para ver o funcionamento sem dados
-*/
-Route::get('/', function () {
-    return view('dashboard');
-});
-Route::get('/sales', function () {
-    return view('crud_sales');
-});
-Route::get('/products', function () {
-    return view('crud_products');
-});
+/**
+ * Rotas de Produtos
+ */
+Route::get('/product/create', 'ProductController@create')->name('product.create');
+Route::resource('/product', 'ProductController')->except('index', 'create', 'show');
+
+/**
+ * Rotas de Vendas
+ */
+Route::get('/sale/create', 'SaleController@create')->name('sales.create');
+Route::resource('sales', 'SaleController')->except('create', 'show');

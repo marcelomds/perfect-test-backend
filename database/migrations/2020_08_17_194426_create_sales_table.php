@@ -17,9 +17,10 @@ class CreateSalesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('product_id');
             $table->unsignedBigInteger('customer_id');
-            $table->unsignedInteger('amount');
-            $table->float('discount');
-            $table->string('status');
+            $table->date('saleDate')->nullable();
+            $table->unsignedInteger('quantity')->nullable();
+            $table->float('discount')->nullable();
+            $table->string('status')->nullable();
             $table->timestamps();
             $table->softDeletes();
 

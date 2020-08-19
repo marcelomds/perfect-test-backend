@@ -13,7 +13,7 @@ class ProductRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,17 @@ class ProductRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required',
+            'price' => 'required|numeric'
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'name.required' => 'O nome do produto é obrigatório',
+            'price.required' => 'O preço do produto é obrigatório',
+            'price.numeric' => 'O preço do produto não é válido',
         ];
     }
 }
